@@ -56,29 +56,25 @@ function bubbleSort(arr) {
   console.log(insertSort([4, 5, 8, 1]))
   
   
-  function MergeSortWithEqualArray(arr1, arr2){
-  
-      let finalArray  = [] 
-  
-      while(arr1.length && arr2.length){
-          if(arr1[0] < arr2[0]){
-  finalArray.push(arr1.shift())
-          }else {
-  finalArray.push(arr2.shift())
-          }
-      }
-      return [...finalArray, ...arr1, ...arr2]
+  function merge(left, right) {
+  let sortedArr = [] 
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      sortedArr.push(left.shift())
+    } else {
+      sortedArr.push(right.shift())
+    }
   }
-  
-  
-  function mergeSort(arr){
-  
-      if(arr.length <= 1) return arr 
-  
-      let middle = Math.floor(arr.length / 2) 
-      let leftSide = mergeSort(arr.slice(0, middle))
-      let rightSide = mergeSort(arr.slice(middle)) 
-  
-      return merge(leftSide, rightSide)
-  }
-     mergeSort([5, 4, 3, 2, 1, 3])
+  return [...sortedArr, ...left, ...right]
+}
+
+function mergeSort(arr) {
+  // Base case
+  if (arr.length <= 1) return arr
+  let mid = Math.floor(arr.length / 2)
+  // Recursive calls
+  let left = mergeSort(arr.slice(0, mid))
+  let right = mergeSort(arr.slice(mid))
+  return merge(left, right)
+}
+console.log(mergeSort([3, 5, 8, 5, 99, 1]))
