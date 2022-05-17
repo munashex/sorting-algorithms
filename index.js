@@ -78,3 +78,38 @@ function mergeSort(arr) {
   return merge(left, right)
 }
 console.log(mergeSort([3, 5, 8, 5, 99, 1]))
+
+
+
+function partition(arr, start, end) {
+  const pivotValue = arr[start]
+  let swapIndex = start
+  for (let i = start + 1; i <= end; i++) {
+    if (pivotValue > arr[i]) {
+      swapIndex++
+      if (i !== swapIndex) {
+        // SWAP
+        ;[arr[i], arr[swapIndex]] = [arr[swapIndex], arr[i]]
+      }
+    }
+  }
+  if (swapIndex !== start) {
+    // Swap pivot into correct place
+    ;[arr[swapIndex], arr[start]] = [arr[start], arr[swapIndex]]
+  }
+  return swapIndex
+}
+
+
+
+function quickSort(arr, start = 0, end = arr.length - 1) {
+  // Base case
+  if (start >= end) return
+  let pivotIndex = partition(arr, start, end)
+  // Left
+  quickSort(arr, start, pivotIndex - 1)
+  // Right
+  quickSort(arr, pivotIndex + 1, end)
+  return arr
+}
+console.log(quickSort([5,4, 3, 2, 1]))
